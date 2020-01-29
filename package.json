@@ -1,0 +1,12 @@
+{
+	"name": "weatherDisplay",
+	"version": "0.1.0",
+	"main": "server.js",
+	"repository": "https://github.com/non-bin/weatherDisplay.git",
+	"author": "Alice Jacka <jacka.alice@gmail.com>",
+	"license": "GPL-3.0-or-later",
+	"dependencies": {
+		"ftp": "^0.3.10",
+		"mime": "^2.4.4"
+	}
+}
