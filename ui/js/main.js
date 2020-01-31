@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 'use strict';
 
+const radarUpdateInterval = findGetParameter('radarUpdateInterval') || 500;
+
 // update radar data
 let radarApiData = {};
 const radarState = {frame: 0};
 
+// update from the radar api
 function updateRadarData() {
 	const http = new XMLHttpRequest();
 	const url = window.origin + '/api/radar';
@@ -22,6 +25,7 @@ setInterval(() => {
 	updateRadarData();
 }, 60000);
 
+// update the radar image
 setInterval(() => {
 	let imageName = '';
 	radarState.frame++;
@@ -33,86 +37,19 @@ setInterval(() => {
 	} else {
 		imageName = radarApiData.images[radarState.frame];
 	}
+
 	document.getElementById('radarAnimation').src = './img/radar/data/' + imageName;
-}, 500);
+}, radarUpdateInterval);
 
-const chart1 = new Chart('chart1', {
-	type: 'line',
-	data: {
-		labels:   ['-12h', '-6h', '-3h', '-2h', '-1h', 'now'],
-		datasets: [
-			{
-				label:           'Presure (hPa)',
-				data:            [1, 2, 3, 4, 5, 6, 7, 8, 9],
-				borderWidth:     1,
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-				],
-				borderColor: [
-					'rgba(255, 99, 132, 1)',
-				],
-			},
-		],
-	},
-	options: {
-		scales: {
-			yAxes: [
-				{ticks: {beginAtZero: true}},
-			],
-		},
-	},
-});
-
-const chart2 = new Chart('chart2', {
-	type: 'line',
-	data: {
-		labels:   ['-12h', '-6h', '-3h', '-2h', '-1h', 'now'],
-		datasets: [
-			{
-				label:           'Presure (hPa)',
-				data:            [1, 2, 3, 4, 5, 6, 7, 8, 9],
-				borderWidth:     1,
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-				],
-				borderColor: [
-					'rgba(255, 99, 132, 1)',
-				],
-			},
-		],
-	},
-	options: {
-		scales: {
-			yAxes: [
-				{ticks: {beginAtZero: true}},
-			],
-		},
-	},
-});
-
-const chart3 = new Chart('chart3', {
-	type: 'line',
-	data: {
-		labels:   ['-12h', '-6h', '-3h', '-2h', '-1h', 'now'],
-		datasets: [
-			{
-				label:           'Presure (hPa)',
-				data:            [1, 2, 3, 4, 5, 6, 7, 8, 9],
-				borderWidth:     1,
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-				],
-				borderColor: [
-					'rgba(255, 99, 132, 1)',
-				],
-			},
-		],
-	},
-	options: {
-		scales: {
-			yAxes: [
-				{ticks: {beginAtZero: true}},
-			],
-		},
-	},
-});
+// find the value of a get parameter
+function findGetParameter(parameterName) {
+	let result = null;
+	let tmp = [];
+	window.location.search.substr(1).split('&').forEach((item) => {
+		tmp = item.split('=');
+		if (tmp[0] === parameterName) {
+			result = decodeURIComponent(tmp[1]);
+		}
+	});
+	return result;
+}
