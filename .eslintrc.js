@@ -119,6 +119,7 @@ module.exports = {
 		'no-new-object':                  'error',
 		'no-ternary':                     'error',
 		'no-trailing-spaces':             'error',
+		'no-useless-catch':               'off',
 		'no-whitespace-before-property':  'error',
 		'object-curly-newline':           ['error', {multiline: true}],
 		'object-curly-spacing':           'error',
