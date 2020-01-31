@@ -6,4 +6,5 @@ module.exports = {
 		imagesToKeep:     10,
 		downloadInterval: 60000, // milliseconds
 	},
+	uiServer: {port: 8080},
 };
