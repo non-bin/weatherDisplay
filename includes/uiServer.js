@@ -10,7 +10,7 @@ const mime = require('mime');
 module.exports = http.createServer((req, res) => {
 	if (req.url === '/api/radar') {
 		const response = {};
-		fs.readdir(path.join(__dirname, 'ui', 'img', 'radar', 'data'), (err, files) => {
+		fs.readdir(path.join(__dirname, '../ui/img/radar/data'), (err, files) => {
 			if (err) {
 				throw err;
 			}
@@ -24,18 +24,17 @@ module.exports = http.createServer((req, res) => {
 			res.end(); // end the response
 		});
 	} else {
-		const pathName = path.join(__dirname, url.parse(req.url).pathname);
+		const pathName = path.join(__dirname, '../ui', url.parse(req.url).pathname);
 		fs.readFile(pathName, (err, data) => {
 			if (err) {
 				res.writeHead(404, {'Content-type': 'text/plan'});
 				res.write('Page Was Not Found');
 				res.end();
-				console.log(`Request to ${pathName} failed: NOT FOUND`);
+				// console.log(`Request to ${pathName} failed: NOT FOUND`);
 			} else {
 				res.setHeader('Content-Type', mime.getType(url.parse(req.url).pathname));
 				res.write(data);
 				res.end();
-				console.log(`Request to ${pathName} succeeded`);
 			}
 		});
 	}
